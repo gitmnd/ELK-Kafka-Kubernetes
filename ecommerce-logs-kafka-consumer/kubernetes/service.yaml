@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-logs-kafka-consumer-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: ecommerce-logs-kafka-consumer-pod
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 7001
+      nodePort: 32757

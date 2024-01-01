@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-configmap
+  namespace: kube-system
+data:
+  #    Logstash as specified with 0.0.0.0 to denotes, that it needs to listen on all available interfaces.
+  #    Filebeat will push logs to this port.
+  #    The input  instructs Logstash from where it should get its data.
+  logstash.yml: |
+    http.host: "0.0.0.0"
+    path.config: /usr/share/logstash/pipeline
+  logstash.conf: |
+    input {
+      beats {
+        port => 5044 
+      }
+    }
+    filter {
+      grok {
+          match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:log-level}\[%{DATA:class}\]:%{GREEDYDATA:message}" }
+      }
+      }
+      output {
+        if [kubernetes][namespace] == "default" {
+          elasticsearch {
+            hosts => ["elasticsearch-logging:9200"]
+          }
+          kafka{
+            codec => json
+            bootstrap_servers => "10.110.112.130:9092"       
+            topic_id => "sampletopic"
+            max_request_size => 104857600
+            message_key => "%{[kubernetes][labels][app]}"
+         }
+        }
+        
+    }

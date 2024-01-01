@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-deployment
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: ecommerce-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ecommerce-pod
+    spec:
+      containers:
+        - name: ecommerce-pod
+          image: ecommerce:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7001

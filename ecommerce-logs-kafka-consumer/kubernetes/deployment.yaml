@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-logs-kafka-consumer-deployment
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: ecommerce-logs-kafka-consumer-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ecommerce-logs-kafka-consumer-pod
+    spec:
+      containers:
+        - name: ecommerce-logs-kafka-consumer-pod
+          image: ecommerce-logs-kafka-consumer:latest
+          imagePullPolicy: IfNotPresent
