@@ -158,6 +158,7 @@ The application logs can be sent to Elastic Search, as well to Kafka for further
 
 - ELK Stack is used to capture logs generated from springboot application and sent
   to ElasticSearch and to Kafka as well.
+
 - Below two API's will generate logs when requested by client.
   1) ```/users```
   
@@ -165,6 +166,7 @@ The application logs can be sent to Elastic Search, as well to Kafka for further
 
   - Logs generated , parsed by logstash which are sent to KAFKA topic in the given below format. 
     - For simplicity pasting below few properties of full JSON.
+
   ```
   {
   "beat": {},
@@ -178,7 +180,9 @@ The application logs can be sent to Elastic Search, as well to Kafka for further
   }
   },
   "message": "2024-02-23 12:14:34 INFO 1 -- com.shipping.ecom.bean.LoggerAspect : API: /ping"
-  }```
+  }
+```
+
 - Our intention is to track how many times those two API's are being invoked by client in various time intervals, lets per day, per hour, per minute
 - We will use Kafka streams to achieve this.
 
