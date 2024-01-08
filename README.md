@@ -190,3 +190,9 @@ _This is not required logically as can be used with service dns itself, however 
 ## Application deployment
 - Follow e-commerce/HELP.md
 - Follow e-commerce-logs-kafka-consumer/README.md
+
+## Acknowledgments
+
+This project was inspired by https://www.weave.works/blog/ , and some content has been adapted from their blog post ,
+While the core ideas were derived from the original blog, I have added additional features, made enhancements, and tailored for the project to meet specific requirements that can be run and demonstrated easily.
+
